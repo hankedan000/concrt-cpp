@@ -1,30 +1,30 @@
 cmake_minimum_required (VERSION 3.1)
 
-set(LIBNAME_ALL_UPPER "TEMPLATELIB")
-# used for things like header install dir '/usr/lib/include/templatelib'
-set(LIBNAME_ALL_LOWER "templatelib")
+set(LIBNAME_ALL_UPPER "CONCRT")
+# used for things like header install dir '/usr/lib/include/concrt'
+set(LIBNAME_ALL_LOWER "concrt")
 
-project(TemplateLibProject VERSION 1.0.0)
+project(ConcrtCpp VERSION 1.0.0)
 
 # ---------------------------------------------------------------------------------------
-# Set TEMPLATELIB_MASTER_PROJECT to ON if we are building TemplateLib
+# Set CONCRT_MASTER_PROJECT to ON if we are building ConcrtCpp
 # ---------------------------------------------------------------------------------------
-# Check if TemplateLib is being used directly or via add_subdirectory, but allow overriding
-if(NOT DEFINED TEMPLATELIB_MASTER_PROJECT)
+# Check if ConcrtCpp is being used directly or via add_subdirectory, but allow overriding
+if(NOT DEFINED CONCRT_MASTER_PROJECT)
     if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-        set(TEMPLATELIB_MASTER_PROJECT ON)
+        set(CONCRT_MASTER_PROJECT ON)
     else()
-        set(TEMPLATELIB_MASTER_PROJECT OFF)
+        set(CONCRT_MASTER_PROJECT OFF)
     endif()
 endif()
 
-option(TEMPLATELIB_BUILD_ALL "Build all artifacts" OFF)
+option(CONCRT_BUILD_ALL "Build all artifacts" OFF)
 
 # examples options
-option(TEMPLATELIB_BUILD_EXAMPLES "Build examples" ${TEMPLATELIB_MASTER_PROJECT})
+option(CONCRT_BUILD_EXAMPLES "Build examples" ${CONCRT_MASTER_PROJECT})
 
 # testing options
-option(TEMPLATELIB_BUILD_TESTS "Build tests" ${TEMPLATELIB_MASTER_PROJECT})
+option(CONCRT_BUILD_TESTS "Build tests" ${CONCRT_MASTER_PROJECT})
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -58,12 +58,12 @@ add_subdirectory(src)
 # ---------------------------------------------------------------------------------------
 # Build binaries
 # ---------------------------------------------------------------------------------------
-if (TEMPLATELIB_BUILD_EXAMPLES OR TEMPLATELIB_BUILD_ALL)
+if (CONCRT_BUILD_EXAMPLES OR CONCRT_BUILD_ALL)
 	message(STATUS "${PROJECT_NAME} - Generating examples")
 	add_subdirectory(examples)
 endif()
 
-if (TEMPLATELIB_BUILD_TESTS OR TEMPLATELIB_BUILD_ALL)
+if (CONCRT_BUILD_TESTS OR CONCRT_BUILD_ALL)
 	message(STATUS "${PROJECT_NAME} - Generating tests")
 	include(CTest)
 	add_subdirectory(test)

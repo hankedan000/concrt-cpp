@@ -1,9 +1,14 @@
 find_package(cppunit REQUIRED)
 
-add_executable(MathTest MathTest.cpp)
-add_test(NAME MathTest COMMAND MathTest)
+# ResourcePool unit test
+add_executable(ResourcePoolTest ResourcePoolTest.cpp)
+add_test(NAME ResourcePoolTest COMMAND ResourcePoolTest)
 
 target_link_libraries(
-	MathTest
-		Math
+	ResourcePoolTest
+		${LIBNAME_ALL_LOWER}
 		${CPPUNIT_LIBRARIES})
+
+# ResourcePool throughput test app
+add_executable(ResourcePoolThroughputTest ResourcePoolThroughputTest.cpp)
+target_link_libraries(ResourcePoolThroughputTest ${LIBNAME_ALL_LOWER} pthread)

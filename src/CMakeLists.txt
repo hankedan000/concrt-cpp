@@ -1,13 +1,13 @@
-add_library(Math Math.cpp)
+add_library(${LIBNAME_ALL_LOWER} ResourcePool.cpp)
 
 # add namespaced alias so that library target is referencable similar
 # to how it would when included from exports. this enabled project
 # users to do add_sub_directory() on this project as submodule
-add_library(Math::Math ALIAS Math)
+add_library(${PROJECT_NAME}::${LIBNAME_ALL_LOWER} ALIAS ${LIBNAME_ALL_LOWER})
 
 set(LIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/${LIBNAME_ALL_LOWER}")
 
-target_include_directories(Math
+target_include_directories(${LIBNAME_ALL_LOWER}
 	PUBLIC
 		"${CMAKE_CURRENT_SOURCE_DIR}/include")
 
@@ -16,15 +16,15 @@ configure_file("${LIB_INCLUDE_DIR}/version.h.in" "include/${LIBNAME_ALL_LOWER}/v
 
 # build a list of public header files to install
 list(APPEND ${LIBNAME_ALL_UPPER}_PUBLIC_HEADERS
-	"${LIB_INCLUDE_DIR}/Math.h"
+	"${LIB_INCLUDE_DIR}/ResourcePool.h"
 	"${CMAKE_CURRENT_BINARY_DIR}/include/${LIBNAME_ALL_LOWER}/version.h"
 )
-set_target_properties(Math PROPERTIES
+set_target_properties(${LIBNAME_ALL_LOWER} PROPERTIES
 	PUBLIC_HEADER "${${LIBNAME_ALL_UPPER}_PUBLIC_HEADERS}"
 )
 install(
-	TARGETS Math
-	EXPORT MathTargets
+	TARGETS ${LIBNAME_ALL_LOWER}
+	EXPORT ${LIBNAME_ALL_LOWER}Targets
 	ARCHIVE
 		DESTINATION "lib/${MULTI_ARCH_SUFFIX}/${LIBNAME_ALL_LOWER}"
 	LIBRARY
@@ -34,7 +34,7 @@ install(
 )
 
 # so this target can be used
-export(EXPORT MathTargets
-	FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/MathTargets.cmake"
-	NAMESPACE Math::
+export(EXPORT ${LIBNAME_ALL_LOWER}Targets
+	FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/${LIBNAME_ALL_LOWER}Targets.cmake"
+	NAMESPACE ${PROJECT_NAME}::
 )
